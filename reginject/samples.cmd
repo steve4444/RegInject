@@ -1,10 +1,11 @@
-.\RegInject samples\original.reg  -i samples\samplehive -d deb.reg
+
+.\RegInject samples\original.reg  -i samplehive -d deb.reg
 pause
 
 .\RegInject -e  samplehive
 pause
 
-.\RegInject samples\sample.reg    -s samples\samplehive -d deb.reg
+.\RegInject samples\sample.reg  -s samplehive -d deb.reg
 
 pause
 
