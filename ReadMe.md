@@ -24,28 +24,30 @@ If you are already knowledgeable about Windows registry, the RegInject help says
     
     .\RegInject -h       
 
-    Inject a `.reg' file into an offline hive or create a new one from scratch.      
-                                                                                     
-    Syntax:                                                                          
-    RegInject [OPTIONS]  <.reg file path>                                            
-    Note: If the path of the new hive to be created exists, it will be overwritten.  
-                                                                                     
-    Options:                                                                         
-      -s, --source=VALUE         Path of the hive file to inject. If not given, the  
-                                   hive is created from scratch.                     
-      -i, --inject=VALUE         Path to the new hive injected. If not given, it is  
-                                   built adding a '.new' suffix to the hive path in  
-                                   '-s'. if neither '-s' is given, 'hive' is added   
-                                   to the regfile removing '.reg' extension.         
-      -e, --explore=VALUE        Explore the hive file with human readable output.                                  
-      -k, --key=VALUE            Optional subtree to explore.                        
-      -m, --major=VALUE          Major OS registry compat. Def. to 6.                
-      -n, --minor=VALUE          Minor OS registry compat. Def. to 1.                
-      -d, --debug=VALUE          Verbose and Debug (reg) file.                       
-      -h, --help                 show this message and exit                                
+                                                                              
+    Inject a `.reg' file into an offline hive or create a new one from scratch.   
+                                                                                  
+    Syntax:                                                                       
+    RegInject [OPTIONS]  <.reg file path>                                         
+    RegInject -e <hive file path> [-k subkey]                                     
+                                                                                  
+    Note: If the injected hive file exists, it will be overwritten.               
+                                                                                  
+    Options:                                                                      
+      -s, --source=VALUE         Path to file to read the hive to inject. If not  
+                                   given, the hive is created from scratch.       
+      -i, --inject=VALUE         Path to file to write the injected hive. If not  
+                                   given, it is built adding a '.new' suffix to th
+                                   hive path in '-s'. If '-s' is not given, 'hive'
+                                   is added to the regfile removing '.reg'.       
+      -e, --explore=VALUE        Explore the hive file with human readable output.
+      -k, --key=VALUE            Optional subtree to explore.                     
+      -m, --major=VALUE          Major OS registry compat. Def. to 6.             
+      -n, --minor=VALUE          Minor OS registry compat. Def. to 1.             
+      -d, --debug=VALUE          Path to debug '.reg' file and verbose output.    
+      -h, --help                 Show this message and exit.                      
   
   
-
 Default version 6.1 refers to Windows 7,  see [Windows API](https://msdn.microsoft.com/en-us/library/ee210773)
 
 Read on for more details. 
@@ -53,7 +55,7 @@ Read on for more details.
 ### Examples
 
 
-    # Creates the hive file adminhive with the entries from admin.reg
+    # Create the hive file adminhive with the entries from admin.reg
     .\RegInject admin.reg -i adminhive
 
     # Like above, but the hive is automatically named adminhive
@@ -68,7 +70,7 @@ Read on for more details.
     # See the content of deployhive. Binary strings are shown as human strings
     .\RegInject -e deployhive
 
-    # For large hives redirect the output (>) to a file or specify a key subkey tree
+    # For large hives redirect the output (>) to a file or specify a subkey tree
     .\RegInject -e deployhive -k subkeytree
 
 
@@ -165,5 +167,6 @@ The Win95/NT `.reg` file format (REGEDIT4) is not supported.
 
 This project forks an `offreg.dll` wrapper by [Michael Bisbjerg](https://github.com/LordMike/OffregLib) (Lord Mike) 
 
-<!--  LocalWords:  RegInject dat scriptable DLL subkey subkeys
- -->
+
+
+_This ReadMe desperately needs a better template._

@@ -32,19 +32,20 @@ namespace RegInjectApp
             #region Option text
             var p = new OptionSet {
                 { "s|source=",
-                    "Path of the hive file to inject. If not given, the hive is created from scratch.",
+                    "Path to file to read the hive to inject. If not given, the hive is created from scratch.",
                     (string s) => { hivepath = s; fromscratch=false; } },
-                { "i|inject=", "Path to the new hive injected. " +
-                "If not given, it is built adding a '.new' suffix to the hive path in '-s'. if " +
-                "neither '-s' is given, 'hive' is added to the regfile removing '.reg' extension.",
+                { "i|inject=", "Path to file to write the injected hive. " +
+                "If not given, it is built adding a '.new' suffix to the hive path in '-s'. " +
+                "If '-s' is not given, 'hive' is added to the regfile removing '.reg'.",
                     (string i) => { newhivep= i; suffix = false; } },
                 { "e|explore=", "Explore the hive file with human readable output.",
                     (string e) => { hivepath = e; explore=true; } },
                 { "k|key=",     "Optional subtree to explore.",       (string k) => { exploreKey=k; } },
                 { "m|major=", "Major OS registry compat. Def. to 6.", (uint m)=>{ major=m; vers= true; } },
                 { "n|minor=", "Minor OS registry compat. Def. to 1.", (uint n)=>{ minor=n; vers= true; } },
-                { "d|debug=", "Verbose and Debug (reg) file.", (string d) => {debfile = d; debug =true;} },
-                { "h|help",   "show this message and exit",                      h => help = h != null },
+                { "d|debug=", "Path to debug '.reg' file and verbose output.",
+                    (string d) => {debfile = d; debug =true;} },
+                { "h|help",   "Show this message and exit.",                      h => help = h != null },
             };
 
             string[] usage = {
@@ -54,7 +55,7 @@ Syntax:
 RegInject [OPTIONS]  <.reg file path> 
 RegInject -e <hive file path> [-k subkey]
 
-Note: If the path of the new hive to be created exists, it will be overwritten. 
+Note: If the injected hive file exists, it will be overwritten. 
 " };
             #endregion
 

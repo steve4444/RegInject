@@ -82,4 +82,4 @@ Registry data types from Windows `winnt.h`. See also
     #define REG_QWORD_LITTLE_ENDIAN     ( 11ul ) // 64-bit number (same as REG_QWORD)
 
 
-In reg files less common data typed  are presented with the type `hex(x)` where x is the hex version of the integer in parenthesis.
+In reg files less common data types are presented with the type `hex(x)` where `x` is the hex version of the integer in parenthesis.
