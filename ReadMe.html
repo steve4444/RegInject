@@ -3,7 +3,7 @@
 <h2 id="preliminaries">Preliminaries</h2>
 <p>Windows has two main <a href="https://en.wikipedia.org/wiki/Windows_Registry">registry</a> file formats: the <em>registration file</em> (<code>.reg</code>) and the <em>hive file</em> (<code>.dat</code> or no extension). Only the latter file types are <em>loaded</em> and directly used by Windows APIs.</p>
 <p>Registration files can be used by admins to inject new items in one of the loaded hives. However, there are situations where you want to edit hive file offline (without loading them). For example, you want to make different versions of a hive file, customised for different users; or you want to edit original hive files obtained from installation media, before building a system.</p>
-<p>Unfortunately there is no Microsoft utility to modify offline hive files, so you have to load the hive, apply modifications and unload it. This procedure is not easily scriptable and has security implications. Hence RegInject, where &quot;inject&quot; is meant also as deleting, not only adding, items to a hive.</p>
+<p>Unfortunately there is no Microsoft utility to modify offline hive files, so you have to load the hive, apply modifications and unload it. This procedure is not easily scriptable and has security implications. Hence RegInject, where “inject” is meant also as deleting, not only adding, items to a hive.</p>
 <h2 id="usage-tldr">Usage: TLDR</h2>
 <p>If you are already knowledgeable about Windows registry, the RegInject help says the most of what you need:</p>
 <pre><code>.\RegInject -h       
@@ -51,8 +51,8 @@ Options:
 # For large hives redirect the output (&gt;) to a file or specify a subkey tree
 .\RegInject -e deployhive -k subkeytree</code></pre>
 <h2 id="setup">Setup</h2>
-<p><code>RegInject.exe</code> requires the free distributed Microsoft DLL <code>offreg.dll</code>, which is included in the project release. You can also obtain yourself the DLL from the <a href="https://msdn.microsoft.com/en-us/library/ee210757">Offline Registry Library</a> page.</p>
-<p>The version shipped in the release package is the x64 version. The source code contain also the x86 version of the DLL in the <code>ridist</code> directory, anyway I was unable to find an x86 system to test it and it could be possibly removed.</p>
+<p>There is no actual setup: just grab <code>RegInject.exe</code> and its <code>offreg.dll</code> from <code>reginject/bin/Release</code>.</p>
+<p><code>offreg.dll</code> is a freely distributed Microsoft DLL. You can also obtain yourself the DLL from the <a href="https://msdn.microsoft.com/en-us/library/ee210757">Offline Registry Library</a> page. The version shipped in the release package along the main executable is the x64 version. You can find the x86 version of the DLL in the <code>ridist</code> directory, anyway I was unable to find an x86 system to test it and it could be possibly removed in the future. <code>RegInject.exe</code> itself is built for any CPU.</p>
 <h2 id="additional-usage-notes">Additional usage notes</h2>
 <h3 id="relative-hive-paths">Relative Hive Paths</h3>
 <p>Bear in mind that key paths to be injected should be relative to the offline hive.<br />
@@ -65,7 +65,7 @@ In <code>regedit.exe</code>, assume you exported the hive file (not the registra
 &quot;version&quot;=&quot;1.2.3&quot; </code></pre>
 <p>When you later to attach the injected hive, you decide under which root to load it.</p>
 <h3 id="make-some-tests">Make some tests</h3>
-<p>After injecting, use the hive-explore option (<code>-e</code>) to test results. You might even compare the results with <code>regedit.exe</code>. In <code>regedit.exe</code>, select <code>HKEY_USERS</code> and load your injected hive from the File menu. You are asked for a name for the loaded hive. You may unload the hive when you are finished. Comparing every time with Regedit would be against the purpose of RegInject, but a &quot;second opinion&quot; before going in production does not hurt.</p>
+<p>After injecting, use the hive-explore option (<code>-e</code>) to test results. You might even compare the results with <code>regedit.exe</code>. In <code>regedit.exe</code>, select <code>HKEY_USERS</code> and load your injected hive from the File menu. You are asked for a name for the loaded hive. You may unload the hive when you are finished. Comparing every time with Regedit would be against the purpose of RegInject, but a “second opinion” before going in production does not hurt.</p>
 <h3 id="administrator-rights">Administrator rights</h3>
 <p>A RegInject design principle is to allow you to develop injection scripts on ordinary files, where you do not need any special permission. To enforce this principle, RegInject applies modifications on a copy of the source file, which means that you need a subsequent explicit shell command to replace the original file with the injected version. You are free to experiment with RegInject, but should apply special care when you proceed with their replacement. A very safe path would be developing your RegInject script on a copy of the target hive, test the injected hive file(s) in a virtual machine and possibly put the script in production.</p>
 <h3 id="obtaining-and-replacing-hive-files">Obtaining and replacing hive files</h3>
@@ -78,7 +78,7 @@ In <code>regedit.exe</code>, assume you exported the hive file (not the registra
 <p>Loaded hives are protected from access, which means that you cannot access them (with ordinary means) when they are in use. However, to have access to user specific hives suffices to act from another profile with admin rights. The original (untouched) version of system wide hives are found in <code>.wim</code> files on Windows installation media.<br />
 Finally, it is possible to save hives in use with the Windows utility <code>reg.exe</code> (requires admin rights):</p>
 <pre><code> REG SAVE KeySubtree hivepath</code></pre>
-<p>The same can be done with a GUI based <code>regedit.exe</code>, via its export key feature (in the &quot;File&quot; or key context menu). In this case, uou have to choose as file type in the dialog Windows &quot;Registry Hive files&quot; (and not the default &quot;Registration Files&quot;).</p>
+<p>The same can be done with a GUI based <code>regedit.exe</code>, via its export key feature (in the “File” or key context menu). In this case, uou have to choose as file type in the dialog Windows “Registry Hive files” (and not the default “Registration Files”).</p>
 <p>The replacement of user hives, requires the admin access from a different profile. If you are building or fixing a system and need to replace system hives, the preinstallation or recovery environment will usually give the permissions to touch the system hives.</p>
 <h3 id="creating-registration-files">Creating registration files</h3>
 <p>When you create <code>.reg</code> files try not to divert from the <a href="https://msdn.microsoft.com/en-us/library/gg469889.aspx">syntax rules</a>. For a primer on <code>.reg</code> format see <code>reg-format.html</code> included with the project.<br />
@@ -86,15 +86,14 @@ Specifically, when adding values, do not add extra spaces around the <code>=</co
 <pre><code>&quot;DWORD value&quot;=dword:00000001
 &quot;String value&quot;=&quot;Hello world&quot;
 &quot;QWORD value&quot;=hex(b):01,00,00,00,00,00,00,00</code></pre>
-<p>RegInject supports the delete syntax, using a dash before the key or after the value's equal sign, that is:</p>
+<p>RegInject supports the delete syntax, using a dash before the key or after the value’s equal sign, that is:</p>
 <pre><code>[-KEY1]</code></pre>
 <p>deletes <code>KEY1</code> and</p>
 <pre><code>&quot;ValueName1&quot;=-</code></pre>
 <p>deletes <code>ValueName1</code>.</p>
 <p>IF/ENDIF blocks are not supported.</p>
 <h2 id="compatibility">Compatibility</h2>
-<p>Currently RegInject works with 'Windows Registry Editor Version 5.00' format.<br />
+<p>Currently RegInject works with ‘Windows Registry Editor Version 5.00’ format.<br />
 The Win95/NT <code>.reg</code> file format (REGEDIT4) is not supported.</p>
 <h2 id="credits">Credits</h2>
 <p>This project forks an <code>offreg.dll</code> wrapper by <a href="https://github.com/LordMike/OffregLib">Michael Bisbjerg</a> (Lord Mike)</p>
-<p><em>This ReadMe desperately needs a better template.</em></p>

@@ -76,9 +76,9 @@ Read on for more details.
 
 ## Setup 
 
-`RegInject.exe` requires the free distributed Microsoft DLL `offreg.dll`, which is included in the project release. You can also obtain yourself the DLL from the [Offline Registry Library](https://msdn.microsoft.com/en-us/library/ee210757) page. 
+There is no actual setup: just grab `RegInject.exe` and its `offreg.dll` from `reginject/bin/Release`. 
 
-The version shipped in the release package is the x64 version. The source code contain also the x86 version of the DLL in the `ridist` directory, anyway I was unable to find an x86 system to test it and it could be possibly removed. 
+ `offreg.dll` is a freely distributed Microsoft DLL. You can also obtain yourself the DLL from the [Offline Registry Library](https://msdn.microsoft.com/en-us/library/ee210757) page. The version shipped in the release package along the main executable is the x64 version. You can find the x86 version of the DLL in the `ridist` directory, anyway I was unable to find an x86 system to test it and it could be possibly removed in the future. `RegInject.exe` itself is built for any CPU. 
 
 
 ## Additional usage notes
